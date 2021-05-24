@@ -1,5 +1,5 @@
 homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
-  - sha: 00000000
+  - sha: 0537ddd
     changeNotes: initial commit
