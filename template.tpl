@@ -34,7 +34,33 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Consentmanager.net ID",
     "simpleValueType": true,
     "help": "Get your consentmanager.net ID at https://www.consentmanager.net/client/codes.php and insert the ID",
-    "notSetText": "Please enter your Consentmanager ID found in your Account at consentmanager.net.",
+    "notSetText": "Please enter your \u0027Consentmanager ID\u0027 found in your Account at consentmanager.net.",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "consentmanager_host",
+    "displayName": "Consentmanager.net Host",
+    "simpleValueType": true,
+    "help": "Get your consentmanager.net Host at https://www.consentmanager.net/client/codes.php and insert the Host",
+    "notSetText": "Please enter your \u0027Consentmanager Host\u0027 found in your Account at consentmanager.net.",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "consentmanager_cdn",
+    "displayName": "Consentmanager.net CDN",
+    "simpleValueType": true,
+    "help": "Get your consentmanager.net CDN at https://www.consentmanager.net/client/codes.php and insert the Host",
+    "notSetText": "Please enter your \u0027Consentmanager CDN\u0027 found in your Account at consentmanager.net.",
     "valueValidators": [
       {
         "type": "NON_EMPTY"
@@ -47,42 +73,6 @@ ___TEMPLATE_PARAMETERS___
     "checkboxText": "Google Consent Mode",
     "simpleValueType": true,
     "defaultValue": false
-  },
-  {
-    "type": "GROUP",
-    "name": "google_consent_mode_defaults",
-    "displayName": "Defaults for Google Consent Mode",
-    "groupStyle": "NO_ZIPPY",
-    "subParams": [
-      {
-        "type": "CHECKBOX",
-        "name": "analytics_storage",
-        "checkboxText": "Allow Ad Storage",
-        "simpleValueType": true,
-        "defaultValue": false
-      },
-      {
-        "type": "CHECKBOX",
-        "name": "ad_storage",
-        "checkboxText": "Allow Analytics Storage",
-        "simpleValueType": true,
-        "defaultValue": false
-      },
-      {
-        "type": "CHECKBOX",
-        "name": "third_party_storage",
-        "checkboxText": "Third Party Storage",
-        "simpleValueType": true,
-        "defaultValue": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "google_consent_mode",
-        "paramValue": true,
-        "type": "EQUALS"
-      }
-    ]
   }
 ]
 
@@ -97,15 +87,17 @@ const injectScript = require('injectScript');
 const encodeUriComponent = require('encodeUriComponent');
 const queryPermission = require('queryPermission');
 const consentmanager_id = data.consentmanager_id;
+const consentmanager_cdn = data.consentmanager_cdn;
+const consentmanager_host = data.consentmanager_host;
 const google_consent_mode = data.google_consent_mode;
 
-let scriptUrl = 'https://cdn.consentmanager.net/delivery/semiautomatic.min.js?ab=1&host=delivery.consentmanager.net&cdn=cdn.consentmanager.net';
-
-if(consentmanager_id){
-  scriptUrl += '&id='+ encodeUriComponent(consentmanager_id);
-}else{
+if(!consentmanager_id || !consentmanager_cdn){
   data.gtmOnFailure();
 }
+
+let scriptUrl = 'https://'+ consentmanager_cdn +'/delivery/customcmp/'+ consentmanager_id +'.js';
+
+scriptUrl += '&id='+ encodeUriComponent(consentmanager_id);
 
 if(google_consent_mode){
   const setDefaultConsentState = require('setDefaultConsentState');
@@ -299,10 +291,12 @@ ___WEB_PERMISSIONS___
   }
 ]
 
-
 ___NOTES___
 
-Created on 24.5.2021, 15:39:38
+Created on 26.5.2021, 07:39:22
+
+
+
 
 
 
