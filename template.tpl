@@ -95,7 +95,7 @@ if(!consentmanager_id || !consentmanager_cdn){
   data.gtmOnFailure();
 }
 
-let scriptUrl = 'https://'+ consentmanager_cdn +'/delivery/customcmp/'+ encodeUriComponent(consentmanager_id) +'.js';
+let scriptUrl = 'https://'+ encodeUriComponent(consentmanager_cdn) +'/delivery/customcmp/'+ encodeUriComponent(consentmanager_id) +'.js';
 
 if(google_consent_mode){
   const setDefaultConsentState = require('setDefaultConsentState');
@@ -291,12 +291,4 @@ ___WEB_PERMISSIONS___
 
 ___NOTES___
 
-Created on 26.5.2021, 07:39:22
-
-
-
-
-
-
-
-
+Created on 30.5.2021, 16:07:37
