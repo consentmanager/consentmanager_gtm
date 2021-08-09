@@ -1,5 +1,9 @@
 homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
+  # Latest version
   - sha: 6c0b47e
     changeNotes: fix for validations and default consent state
+  # Older versions
+  - sha: 0d69525
+    changeNotes: initial commit
