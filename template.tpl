@@ -72,19 +72,21 @@ ___TEMPLATE_PARAMETERS___
 "name": "google_consent_mode",
 "checkboxText": "Google Consent Mode",
 "simpleValueType": true,
-"defaultValue": false
+"defaultValue": true,
+"alwaysInSummary": true
 },
 {
 "type": "LABEL",
 "name": "label1",
-"displayName": "Consent mode defaults"
+"displayName": "Consent mode defaults",
+"alwaysInSummary": true
 },
 {
 "type": "CHECKBOX",
 "name": "consent_analytics",
 "checkboxText": "Allow Analytics Cookies",
 "simpleValueType": true,
-"defaultValue": true,
+"defaultValue": false,
 "alwaysInSummary": true
 },
 {
@@ -92,7 +94,7 @@ ___TEMPLATE_PARAMETERS___
 "name": "consent_advertising",
 "checkboxText": "Allow Advertising Cookies",
 "simpleValueType": true,
-"defaultValue": true,
+"defaultValue": false,
 "alwaysInSummary": true
 },
 {
@@ -100,7 +102,7 @@ ___TEMPLATE_PARAMETERS___
 "name": "consent_third_party",
 "checkboxText": "Allow Third Party Cookies",
 "simpleValueType": true,
-"defaultValue": true,
+"defaultValue": false,
 "alwaysInSummary": true
 }
 ]
