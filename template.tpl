@@ -128,28 +128,26 @@ data.gtmOnFailure();
 
 let scriptUrl = 'https://'+ encodeUriComponent(consentmanager_cdn) +'/delivery/customcmp/'+ encodeUriComponent(consentmanager_id) +'.js';
 
-if(google_consent_mode){
-const setDefaultConsentState = require('setDefaultConsentState');
-const analytics_storage = data.consent_analytics;
-const ad_storage = data.consent_advertising;
-const third_party_storage = data.consent_third_party;
-if(queryPermission('accesses_consent_state', 'write', 'analytics_storage') &&
-queryPermission('accesses_consent_state', 'write', 'ad_storage') &&
-queryPermission('accesses_consent_state', 'write', 'third_party_storage')){
-setDefaultConsentState({
-'analytics_storage': analytics_storage ? 'granted' : 'denied',
-'ad_storage': ad_storage ? 'granted' : 'denied',
-'third_party_storage': third_party_storage ? 'granted' : 'denied',
-});
-}else{
-data.gtmOnFailure();
-}
+if(google_consent_mode)
+{
+ const setDefaultConsentState = require('setDefaultConsentState');
+ const analytics_storage = data.consent_analytics;
+ const ad_storage = data.consent_advertising;
+ const third_party_storage = data.consent_third_party;
+ setDefaultConsentState({
+  'analytics_storage': analytics_storage ? 'granted' : 'denied',
+  'ad_storage': ad_storage ? 'granted' : 'denied',
+  'third_party_storage': third_party_storage ? 'granted' : 'denied',
+ });
 }
 
-if (queryPermission('inject_script', scriptUrl)) {
-injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure);
-} else {
-data.gtmOnFailure();
+if (queryPermission('inject_script', scriptUrl))
+{
+ injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure);
+} 
+else 
+{
+ data.gtmOnFailure();
 }
 
 
@@ -331,5 +329,5 @@ ___WEB_PERMISSIONS___
 ___NOTES___
 
 Created on 9.8.2021, 07:07:11
-
+Consent default fixes 24.8.2021, 8:26
 
