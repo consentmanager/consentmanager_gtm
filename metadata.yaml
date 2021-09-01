@@ -2,8 +2,8 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
   # Latest version
-  - sha: 2c4d0d3
-    changeNotes: updated versions in metadata.yaml
+  - sha: 4a2daac
+    changeNotes: updated template.tpl
   # Older versions
-  - sha: 6c0b47e
+  - sha: 2c4d0d3
     changeNotes: fix for validations and default consent state
