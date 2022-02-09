@@ -73,7 +73,7 @@ ___TEMPLATE_PARAMETERS___
     "name": "google_consent_mode",
     "checkboxText": "Google Consent Mode",
     "simpleValueType": true,
-    "defaultValue": true,
+    "defaultValue": false,
     "alwaysInSummary": true
   },
   {
