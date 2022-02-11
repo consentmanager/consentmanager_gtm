@@ -128,13 +128,13 @@ if(!consentmanager_id || !consentmanager_cdn)
  data.gtmOnFailure();
 }
 
-if(consentmanager_cdn.substr(0,8) == 'https://')
+if(typeof(consentmanager_cdn) == 'string' && consentmanager_cdn.substring(0,8) == 'https://')
 {
-  consentmanager_cdn = consentmanager_cdn.substr(8,9999);
+  consentmanager_cdn = consentmanager_cdn.substring(8,9999);
 }
-if(consentmanager_host.substr(0,8) == 'https://')
+if(typeof(consentmanager_host) == 'string' && consentmanager_host.substring(0,8) == 'https://')
 {
-  consentmanager_host = consentmanager_host.substr(8,9999);
+  consentmanager_host = consentmanager_host.substring(8,9999);
 }
 
 let scriptUrl = 'https://'+ encodeUriComponent(consentmanager_cdn) +'/delivery/customcmp/'+ encodeUriComponent(consentmanager_id) +'.js';
