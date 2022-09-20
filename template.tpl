@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Consentmanager.net CMP",
+  "displayName": "consentmanager.net CMP \u0026 Cookie Banner",
   "brand": {
     "id": "github.com_consentmanager",
     "displayName": "consentmanager",
@@ -105,6 +105,90 @@ ___TEMPLATE_PARAMETERS___
     "simpleValueType": true,
     "defaultValue": false,
     "alwaysInSummary": true
+  },
+  {
+    "type": "TEXT",
+    "name": "wait_for_update",
+    "displayName": "Timeout",
+    "simpleValueType": true,
+    "defaultValue": 500,
+    "valueUnit": "ms",
+    "alwaysInSummary": false
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "cb_ads_data_redaction",
+    "checkboxText": "Redact Ads Data",
+    "simpleValueType": true,
+    "defaultValue": false
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "cb_url_passthrough",
+    "checkboxText": "Pass Ad Click Information in URLs",
+    "simpleValueType": true,
+    "defaultValue": false
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "regiosettings",
+    "displayName": "Regional settings (override default settings)",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Region (country codes, e.g. \"DE\" or \"FR,ES,IT\")",
+        "name": "region",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Setting",
+        "name": "storagetype",
+        "type": "SELECT",
+        "selectItems": [
+          {
+            "value": "analytics_storage",
+            "displayValue": "Allow Analytics Cookies"
+          },
+          {
+            "value": "ad_storage",
+            "displayValue": "Allow Advertising Cookies"
+          },
+          {
+            "value": "third_party_storage",
+            "displayValue": "Allow Third Party Cookies"
+          },
+          {
+            "value": "personalization_storage",
+            "displayValue": "Allow Personalization Cookies"
+          },
+          {
+            "value": "security_storage",
+            "displayValue": "Allow Security Cookies"
+          },
+          {
+            "value": "functionality_storage",
+            "displayValue": "Allow Functional Cookies"
+          }
+        ]
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Status",
+        "name": "status",
+        "type": "SELECT",
+        "selectItems": [
+          {
+            "value": "granted",
+            "displayValue": "Granted"
+          },
+          {
+            "value": "denied",
+            "displayValue": "Denied"
+          }
+        ]
+      }
+    ]
   }
 ]
 
@@ -113,7 +197,9 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 // Enter your template code here.
 const log = require('logToConsole');
-log('data =', data);
+const makeInteger = require('makeInteger');
+const gtagSet = require('gtagSet');
+//const setInWindow = require('setInWindow');
 
 const injectScript = require('injectScript');
 const encodeUriComponent = require('encodeUriComponent');
@@ -139,17 +225,36 @@ if(typeof(consentmanager_host) == 'string' && consentmanager_host.substring(0,8)
 
 let scriptUrl = 'https://'+ encodeUriComponent(consentmanager_cdn) +'/delivery/customcmp/'+ encodeUriComponent(consentmanager_id) +'.js';
 
+const splitInput = (input) => { return input.split(',').map(entry => entry.trim()).filter(entry => entry.length !== 0); };
+
+
 if(google_consent_mode)
 {
  const setDefaultConsentState = require('setDefaultConsentState');
  const analytics_storage = data.consent_analytics;
  const ad_storage = data.consent_advertising;
  const third_party_storage = data.consent_third_party;
- setDefaultConsentState({
-'analytics_storage': analytics_storage ? 'granted' : 'denied',
-'ad_storage': ad_storage ? 'granted' : 'denied',
-'third_party_storage': third_party_storage ? 'granted' : 'denied',
+ const waitforupdate = makeInteger(data.wait_for_update);    
+// setInWindow('cmp_consentmode_timeout',waitforupdate, true);
+ data.regiosettings.forEach(settings => 
+ {
+   let countries = splitInput(settings.region);
+   let store = settings.storagetype;
+   if(settings.status != 'granted' && settings.status != 'denied'){settings.status = 'denied';}
+   if(store == 'analytics_storage'){setDefaultConsentState({ 'analytics_storage': settings.status, 'region': countries });}
+   else if(store == 'ad_storage'){setDefaultConsentState({ 'ad_storage': settings.status, 'region': countries });}
+   else if(store == 'third_party_storage'){setDefaultConsentState({ 'third_party_storage': settings.status, 'region': countries });}   
+  }); 
+  
+ 
+ setDefaultConsentState({   
+   'analytics_storage': analytics_storage ? 'granted' : 'denied',
+   'ad_storage': ad_storage ? 'granted' : 'denied',
+   'third_party_storage': third_party_storage ? 'granted' : 'denied', 
+   'wait_for_update': waitforupdate,
  });
+  
+ gtagSet({ 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});  
 }
 
 if (queryPermission('inject_script', scriptUrl)) 
@@ -324,6 +429,160 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "security_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "personalization_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "functionality_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "wait_for_update"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "write_data_layer",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "keyPatterns",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "ads_data_redaction"
+              },
+              {
+                "type": 1,
+                "string": "url_passthrough"
               }
             ]
           }
@@ -338,9 +597,16 @@ ___WEB_PERMISSIONS___
 ]
 
 
+___TESTS___
+
+scenarios: []
+
 
 ___NOTES___
 
 Created on 9.8.2021, 07:07:11
 Consent default fixes 24.8.2021, 8:26
 Domain fixes 09.02.2022, 16:41
+Consent Mode update 20.09.2022, 21:13
+
+
