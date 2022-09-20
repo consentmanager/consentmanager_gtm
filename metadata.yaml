@@ -2,8 +2,8 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
   # Latest version
+  - sha:  e273977
+    changeNotes: Google Consent Mode Update
+  # Older versions
   - sha: 1df2d6f
     changeNotes: Fix for js bug
-  # Older versions
-  - sha: 6953889
-    changeNotes: fix for domain validation
