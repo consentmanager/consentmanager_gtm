@@ -236,6 +236,8 @@ if(google_consent_mode)
  const third_party_storage = data.consent_third_party;
  const waitforupdate = makeInteger(data.wait_for_update);    
 // setInWindow('cmp_consentmode_timeout',waitforupdate, true);
+  if(data.regiosettings)
+  {
  data.regiosettings.forEach(settings => 
  {
    let countries = splitInput(settings.region);
@@ -245,7 +247,7 @@ if(google_consent_mode)
    else if(store == 'ad_storage'){setDefaultConsentState({ 'ad_storage': settings.status, 'region': countries });}
    else if(store == 'third_party_storage'){setDefaultConsentState({ 'third_party_storage': settings.status, 'region': countries });}   
   }); 
-  
+  }
  
  setDefaultConsentState({   
    'analytics_storage': analytics_storage ? 'granted' : 'denied',
@@ -607,6 +609,4 @@ ___NOTES___
 Created on 9.8.2021, 07:07:11
 Consent default fixes 24.8.2021, 8:26
 Domain fixes 09.02.2022, 16:41
-Consent Mode update 20.09.2022, 21:13
-
-
+Consent Mode Update 20.09.2022
