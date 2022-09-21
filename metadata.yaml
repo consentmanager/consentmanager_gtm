@@ -2,7 +2,7 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
   # Latest version
-  - sha:  e273977
+  - sha: 95dde21
     changeNotes: Google Consent Mode Update
   # Older versions
   - sha: 1df2d6f
