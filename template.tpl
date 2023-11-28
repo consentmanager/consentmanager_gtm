@@ -100,6 +100,22 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "CHECKBOX",
+    "name": "consent_ad_personalization",
+    "checkboxText": "Allow Ad Personalization",
+    "simpleValueType": true,
+    "defaultValue": false,
+    "alwaysInSummary": true
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "consent_ad_user_data",
+    "checkboxText": "Allow Ad User Data",
+    "simpleValueType": true,
+    "defaultValue": false,
+    "alwaysInSummary": true
+  },
+  {
+    "type": "CHECKBOX",
     "name": "consent_third_party",
     "checkboxText": "Allow Third Party Cookies",
     "simpleValueType": true,
@@ -234,36 +250,42 @@ if(google_consent_mode)
  const analytics_storage = data.consent_analytics;
  const ad_storage = data.consent_advertising;
  const third_party_storage = data.consent_third_party;
- const waitforupdate = makeInteger(data.wait_for_update);    
+ const ad_user_data = data.consent_ad_user_data;
+ const ad_personalization = data.consent_ad_personalization;
+ const waitforupdate = makeInteger(data.wait_for_update);
 // setInWindow('cmp_consentmode_timeout',waitforupdate, true);
   if(data.regiosettings)
   {
- data.regiosettings.forEach(settings => 
+ data.regiosettings.forEach(settings =>
  {
    let countries = splitInput(settings.region);
    let store = settings.storagetype;
    if(settings.status != 'granted' && settings.status != 'denied'){settings.status = 'denied';}
    if(store == 'analytics_storage'){setDefaultConsentState({ 'analytics_storage': settings.status, 'region': countries });}
    else if(store == 'ad_storage'){setDefaultConsentState({ 'ad_storage': settings.status, 'region': countries });}
-   else if(store == 'third_party_storage'){setDefaultConsentState({ 'third_party_storage': settings.status, 'region': countries });}   
-  }); 
+   else if(store == 'third_party_storage'){setDefaultConsentState({ 'third_party_storage': settings.status, 'region': countries });}
+   else if(store == 'ad_user_data'){setDefaultConsentState({ 'ad_user_data': settings.status, 'region': countries });}
+   else if(store == 'ad_personalization'){setDefaultConsentState({ 'ad_personalization': settings.status, 'region': countries });}
+  });
   }
- 
- setDefaultConsentState({   
+
+ setDefaultConsentState({
    'analytics_storage': analytics_storage ? 'granted' : 'denied',
    'ad_storage': ad_storage ? 'granted' : 'denied',
-   'third_party_storage': third_party_storage ? 'granted' : 'denied', 
+   'third_party_storage': third_party_storage ? 'granted' : 'denied',
    'wait_for_update': waitforupdate,
+   'ad_user_data': ad_user_data ? 'granted' : 'denied',
+   'ad_personalization': ad_personalization ? 'granted' : 'denied'
  });
-  
- gtagSet({ 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});  
+
+ gtagSet({ 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});
 }
 
-if (queryPermission('inject_script', scriptUrl)) 
-{ 
+if (queryPermission('inject_script', scriptUrl))
+{
  injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure);
-} 
-else 
+}
+else
 {
  data.gtmOnFailure();
 }
@@ -555,6 +577,68 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_personalization"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_user_data"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
               }
             ]
           }
@@ -610,3 +694,5 @@ Created on 9.8.2021, 07:07:11
 Consent default fixes 24.8.2021, 8:26
 Domain fixes 09.02.2022, 16:41
 Consent Mode Update 20.09.2022
+Updated properties (ad_user_data, ad_personalization) 28.11.2023
+
