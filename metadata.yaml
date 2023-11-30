@@ -2,8 +2,8 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net"
 versions:
   # Latest version
-  - sha: 67645c5
-    changeNotes: Added properties ad_user_data, ad_personalization
+  - sha: bee659e
+    changeNotes: Updated descriptions
   # Older versions
-  - sha: 95dde21
-    changeNotes: Google Consent Mode Update
+  - sha: 67645c5
+    changeNotes: Added properties ad_user_data, ad_personalization for Google Consent Mode v2
