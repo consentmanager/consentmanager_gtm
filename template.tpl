@@ -253,11 +253,11 @@ if(google_consent_mode)
  const ad_user_data = data.consent_ad_user_data;
  const ad_personalization = data.consent_ad_personalization;
  const waitforupdate = makeInteger(data.wait_for_update);
-// setInWindow('cmp_consentmode_timeout',waitforupdate, true);
-  if(data.regiosettings)
-  {
- data.regiosettings.forEach(settings =>
+ gtagSet({'developer_id.dZTJkMz': true, 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});
+ if(data.regiosettings)
  {
+  data.regiosettings.forEach(settings =>
+  {
    let countries = splitInput(settings.region);
    let store = settings.storagetype;
    if(settings.status != 'granted' && settings.status != 'denied'){settings.status = 'denied';}
@@ -267,7 +267,7 @@ if(google_consent_mode)
    else if(store == 'ad_user_data'){setDefaultConsentState({ 'ad_user_data': settings.status, 'region': countries });}
    else if(store == 'ad_personalization'){setDefaultConsentState({ 'ad_personalization': settings.status, 'region': countries });}
   });
-  }
+ }
 
  setDefaultConsentState({
    'analytics_storage': analytics_storage ? 'granted' : 'denied',
@@ -277,8 +277,6 @@ if(google_consent_mode)
    'ad_user_data': ad_user_data ? 'granted' : 'denied',
    'ad_personalization': ad_personalization ? 'granted' : 'denied'
  });
-
- gtagSet({ 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});
 }
 
 if (queryPermission('inject_script', scriptUrl))
@@ -695,4 +693,5 @@ Consent default fixes 24.8.2021, 8:26
 Domain fixes 09.02.2022, 16:41
 Consent Mode Update 20.09.2022
 Updated properties (ad_user_data, ad_personalization) 28.11.2023
+Updated consent mode fix 22.05.2024
 
