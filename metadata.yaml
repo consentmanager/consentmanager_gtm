@@ -2,8 +2,8 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net/books/cmp/page/google-tag-manager-%28gtm%29"
 versions:
   # Latest version
-  - sha: 08fadce
-    changeNotes: Fix Google Consent Mode v2
+  - sha: 827faad
+    changeNotes: Fix Google Consent Mode v2 & rights issue
   # Older versions
   - sha: bee659e
     changeNotes: Updated descriptions, Support for Google Consent Mode v2
