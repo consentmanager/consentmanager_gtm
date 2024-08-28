@@ -2,8 +2,8 @@ homepage: "www.consentmanager.net"
 documentation: "https://help.consentmanager.net/books/cmp/page/google-tag-manager-%28gtm%29"
 versions:
   # Latest version
+  - sha: 24ac046c6fb416b370f946dbb9bb8edb7492cba3
+    changeNotes: Add T&C links
+  # Older versions
   - sha: d875fe9
     changeNotes: Add preview images
-  # Older versions
-  - sha: afd6b57
-    changeNotes: Add vendor info
