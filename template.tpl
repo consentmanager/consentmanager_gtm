@@ -39,7 +39,7 @@ ___VENDOR_DETAILS___
   ],
   "vendorName": "consentmanager AB",
   "description": "Perfect consent solution with 30+ languages, integrated A/B testing \u0026 machine learning, crawler, Google Consent Mode, IAB TCF \u0026 GPP and more.",
-  "homepageUrl": "https://www.consentmanager.net/",
+  "homepageUrl": "https://www.consentmanager.net/?utm_source=g1c",
   "freeTier": "Free tier available",
   "freeTrial": "14-day trial of all important features, no auto-upgrade, no risk",
   "price": "Basic: Free (limited to 5000 pageviews/month)\nBeginner: $21/month\nStandard: $53/month\nAgency: $211/month\nEnterprise: Contact us for offer",
@@ -91,7 +91,8 @@ ___VENDOR_DETAILS___
     "IOS",
     "ANDROID",
     "AMP"
-  ]
+  ],
+  "termsAndConditionsUrl": "https://app.consentmanager.net/tac.php?utm_source=g1c"
 }
 
 
