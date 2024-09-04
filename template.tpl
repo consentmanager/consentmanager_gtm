@@ -90,7 +90,8 @@ ___VENDOR_DETAILS___
     "ANDROID",
     "AMP"
   ],
-  "termsAndConditionsUrl": "https://app.consentmanager.net/tac.php?utm_source=g1c"
+  "termsAndConditionsUrl": "https://app.consentmanager.net/tac.php?utm_source=g1c",
+  "defaultSettingsUrl": "https://help.consentmanager.net/books/cmp/page/implementation-via-google-integrated-cmp-partner?utm_source=g1c"
 }
 
 
