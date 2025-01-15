@@ -322,7 +322,7 @@ if(google_consent_mode)
  const ad_user_data = data.consent_ad_user_data;
  const ad_personalization = data.consent_ad_personalization;
  const waitforupdate = makeInteger(data.wait_for_update);
- gtagSet({'developer_id.dZTJkMz': true, 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});
+ gtagSet({'developer_id.dMzk4MW': true, 'ads_data_redaction': data.cb_ads_data_redaction, 'url_passthrough': data.cb_url_passthrough});
  if(data.regiosettings)
  {
   data.regiosettings.forEach(settings =>
