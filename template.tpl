@@ -739,7 +739,7 @@ ___WEB_PERMISSIONS___
               },
               {
                 "type": 1,
-                "string": "developer_id.dZTJkMz"
+                "string": "developer_id.dMzk4MW"
               }
             ]
           }
