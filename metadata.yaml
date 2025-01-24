@@ -2,7 +2,7 @@ homepage: "https://www.consentmanager.net/?utm_source=google_gtm"
 documentation: "https://help.consentmanager.net/books/cmp/page/google-tag-manager-%28gtm%29?utm_source=google_gtm"
 versions:
   # Latest version
-  - sha: 0572d380b46fdd731052b05b1f36fd77b35e1c3b
+  - sha: 837a8095ab80165a11ebef5d16c58d684218b955
     changeNotes: Fix developer ID
   # Older versions
   - sha: f57a9c247bd2a671bbe7632e9c1f83bae5267615
