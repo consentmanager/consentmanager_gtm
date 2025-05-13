@@ -2,8 +2,8 @@ homepage: "https://www.consentmanager.net/?utm_source=google_gtm"
 documentation: "https://help.consentmanager.net/books/cmp/page/google-tag-manager-%28gtm%29?utm_source=google_gtm"
 versions:
   # Latest version
+  - sha: aa1a4554cb3b8221be9b30579eba8bda73a7519f
+    changeNotes: Add disable CMP option
+  # Older versions
   - sha: 837a8095ab80165a11ebef5d16c58d684218b955
     changeNotes: Fix developer ID
-  # Older versions
-  - sha: f57a9c247bd2a671bbe7632e9c1f83bae5267615
-    changeNotes: Fix Images + name
