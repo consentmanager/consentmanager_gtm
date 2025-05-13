@@ -274,6 +274,15 @@ ___TEMPLATE_PARAMETERS___
         ]
       }
     ]
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "disable_cmp",
+    "checkboxText": "Disable CMP",
+    "simpleValueType": true,
+    "defaultValue": false,
+    "displayName": "Disable CMP",
+    "help": "If checked, the CMP code will not be displayed on your website."
   }
 ]
 
@@ -284,7 +293,6 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const log = require('logToConsole');
 const makeInteger = require('makeInteger');
 const gtagSet = require('gtagSet');
-//const setInWindow = require('setInWindow');
 
 const injectScript = require('injectScript');
 const encodeUriComponent = require('encodeUriComponent');
@@ -293,6 +301,7 @@ const consentmanager_id = data.consentmanager_id;
 let consentmanager_cdn = data.consentmanager_cdn;
 let consentmanager_host = data.consentmanager_host;
 const google_consent_mode = data.google_consent_mode;
+const disable_cmp = data.disable_cmp;
 
 if(!consentmanager_id || !consentmanager_cdn)
 {
@@ -348,7 +357,12 @@ if(google_consent_mode)
  });
 }
 
-if (queryPermission('inject_script', scriptUrl))
+
+if(disable_cmp === true || disable_cmp === 'true' || disable_cmp === 1)
+{
+  data.gtmOnSuccess();
+}
+else if (queryPermission('inject_script', scriptUrl))
 {
  injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure);
 }
@@ -394,10 +408,6 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 2,
             "listItem": [
-              {
-                "type": 1,
-                "string": "https://cdn.consentmanager.mgr.consensu.org/*"
-              },
               {
                 "type": 1,
                 "string": "https://*.consentmanager.net/*"
@@ -767,4 +777,5 @@ Domain fixes 09.02.2022, 16:41
 Consent Mode Update 20.09.2022
 Updated properties (ad_user_data, ad_personalization) 28.11.2023
 Updated consent mode fix 22.05.2024
+Added disable CMP option 13.05.2025
 
