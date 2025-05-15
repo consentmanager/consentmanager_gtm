@@ -1,9 +1,9 @@
 ## Nonthawat100Q/This~other~Add other actions to build
 ##:₱₱
-name:XML~CI
+name:XML/CI
 https://Bitwarden.com/
 #:Nonthawat890.myshopify.com_/-#:Controls_/-whentheworkflowwillrun
-on:1.0/
+#:1.0/
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:1.0/
     branches:1.0^[ "main" ]
