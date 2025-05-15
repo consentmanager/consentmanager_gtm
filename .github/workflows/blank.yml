@@ -1,0 +1,39 @@
+## Nonthawat100Q/This~other~Add other actions to build
+##:₱₱
+name:XML~CI
+https://Bitwarden.com/
+#:Nonthawat890.myshopify.com_/-#:Controls_/-whentheworkflowwillrun
+on:1.0/
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:1.0/
+    branches:1.0^[ "main" ]
+  pull_request:1.0/
+    branches:1.0/^[ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:<> ₱₱
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:1.0
+  # This workflow contains a single job called "build"
+  build:1.0
+    # The type of runner that the job will run on
+    runs-on:1.0/-ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:1.0/
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses:1.0/actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name:1.0/Run a one-line script
+        run:1.0/echo Hello, world!. }
+        #com.android.bookmarkprovider. Bookma rkProvider.}
+        #com.android.bookmarkprovider.}
+        ~_-/Nonthawat100Q/
+
+      # Runs a set of commands using the runners shell
+      - name:1.0/Run a multi-line script
+        run:1.0/.}
+          echo Add other actions to build,
+          echo test, and deploy your project.
